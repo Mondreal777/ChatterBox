@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 
-import signinImage from '../assets/signup.jpg';
+import signinImage from '../assets/emoji.png';
 
 const Auth = () => {
     const [isSignup, setIsSignup] = useState(true);   
 
     const handleChange = () => {};
+
+    const switchMode = () => {
+      setIsSignup((prevIsSignup) => !prevIsSignup);
+    };
 
   return (
     <div className='auth__form-container'>
@@ -61,9 +65,42 @@ const Auth = () => {
                                 />
                 </div>                    
                 )}
+                <div className='auth__form-container_fields-content_input'>
+                    <label htmlFor="password">Password</label>
+                    <input 
+                        name='password' 
+                        type="password"
+                        placeholder="Password"
+                        onChange={handleChange}
+                        required
+                                />
+                </div>
+                {isSignup && (
+                <div className='auth__form-container_fields-content_input'>
+                    <label htmlFor="confirmPassword">Confirm Password</label>
+                    <input 
+                        name='confirmPassword' 
+                        type="confirmPassword"
+                        placeholder="Confirm Password"
+                        onChange={handleChange}
+                        required
+                                />
+                </div>                    
+                )}
             </form>
-        </div>
+            <div className='auth__form-container_fields-account'>
+               <p>
+              {isSignup ?  "Have an account?" : "Don't have an account?"}
+              <span onClick={switchMode}>
+                {isSignup ? "Sign In" : "Sign up"}
+              </span>
+            </p>
+            </div>           
+        </div>        
       </div>
+      <div className='auth__form-container_image'>
+          <img src={signinImage} alt="sign-in"/>
+        </div>
     </div>
   )
 }
